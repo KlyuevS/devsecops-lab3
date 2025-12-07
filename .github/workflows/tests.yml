@@ -6,6 +6,18 @@ on:
   pull_request:
     branches: [ master, main, develop ]
 
+env:
+  # Database Configuration
+  DB_HOST: ${{ secrets.DB_HOST || 'localhost' }}
+  DB_PORT: ${{ secrets.DB_PORT || '5432' }}
+  DB_USER: ${{ secrets.DB_USER || 'postgres' }}
+  DB_PASSWORD: ${{ secrets.DB_PASSWORD || 'postgres' }}
+  DB_NAME: ${{ secrets.DB_NAME || 'news_db' }}
+  
+  # Application Configuration
+  APP_PORT: ${{ secrets.APP_PORT || '8080' }}
+  APP_ENV: ${{ secrets.APP_ENV || 'ci' }}
+
 jobs:
   cache:
     runs-on: ubuntu-latest
@@ -97,6 +109,28 @@ jobs:
     - name: Run unit tests
       run: go test -v -race -coverprofile=coverage.out ./...
       working-directory: .
+      env:
+        # Pass environment variables to tests
+        DB_HOST: ${{ env.DB_HOST }}
+        DB_PORT: ${{ env.DB_PORT }}
+        DB_USER: ${{ env.DB_USER }}
+        DB_PASSWORD: ${{ env.DB_PASSWORD }}
+        DB_NAME: ${{ env.DB_NAME }}
+        APP_PORT: ${{ env.APP_PORT }}
+        APP_ENV: ${{ env.APP_ENV }}
+    
+    - name: Run integration tests
+      run: go test -v -run Integration ./...
+      working-directory: .
+      env:
+        # Pass environment variables to integration tests
+        DB_HOST: ${{ env.DB_HOST }}
+        DB_PORT: ${{ env.DB_PORT }}
+        DB_USER: ${{ env.DB_USER }}
+        DB_PASSWORD: ${{ env.DB_PASSWORD }}
+        DB_NAME: ${{ env.DB_NAME }}
+        APP_PORT: ${{ env.APP_PORT }}
+        APP_ENV: ${{ env.APP_ENV }}
     
     - name: Check test results
       if: failure()
