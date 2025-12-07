@@ -7,7 +7,7 @@ on:
     branches: [ master, main, develop ]
 
 jobs:
-  lint:
+  cache:
     runs-on: ubuntu-latest
     
     steps:
@@ -19,9 +19,47 @@ jobs:
       with:
         go-version: '1.24.1'
     
-    - name: Download dependencies
-      run: go mod download
+    - name: Cache Go modules
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cache/go-build
+          ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
+    
+    - name: Download and cache dependencies
+      run: |
+        go mod download
+        go mod verify
       working-directory: .
+    
+    - name: Cache preparation completed
+      run: echo "Dependencies cached successfully! Ready for lint and test stages..."
+  
+  lint:
+    needs: cache
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.24.1'
+    
+    - name: Restore Go modules cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cache/go-build
+          ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
     
     - name: Run golangci-lint
       uses: golangci/golangci-lint-action@v3
@@ -46,9 +84,15 @@ jobs:
       with:
         go-version: '1.24.1'
     
-    - name: Download dependencies
-      run: go mod download
-      working-directory: .
+    - name: Restore Go modules cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cache/go-build
+          ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
     
     - name: Run unit tests
       run: go test -v -race -coverprofile=coverage.out ./...
