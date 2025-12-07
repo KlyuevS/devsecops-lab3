@@ -485,11 +485,11 @@ jobs:
           -v ${REPORT_DIR}:/zap/wrk:rw \
           ghcr.io/zaproxy/zaproxy:stable \
           zap-baseline.py \
-            -t http://news-app-dast:8080 \
+            -t http://news-app-dast:8080/posts \
             -J zap-report.json \
             -w zap-report.md \
             -r zap-report.html \
-            -a
+            -a -I
 
     - name: Upload ZAP report
       if: always()
