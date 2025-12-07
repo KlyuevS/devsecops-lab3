@@ -427,7 +427,7 @@ jobs:
         docker run -d --name news-app-dast-db \
           --network news-app-dast-net \
           --network-alias db \
-          -v $GITHUB_WORKSPACE/docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro \
+          -v $GITHUB_WORKSPACE/docker/postgres:/docker-entrypoint-initdb.d:ro \
           -e POSTGRES_USER=news_user \
           -e POSTGRES_PASSWORD=news_pass \
           -e POSTGRES_DB=news \
