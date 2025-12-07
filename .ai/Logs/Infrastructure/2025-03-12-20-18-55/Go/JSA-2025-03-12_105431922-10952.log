@@ -1,0 +1,60 @@
+2025-03-12T20:54:31.935+10:00 INFO [T:1] Platform: win, framework: .NETCoreApp,Version=v8.0
+2025-03-12T20:54:31.956+10:00 INFO [T:1] JSA version 1.0.0.0, started with command line: "C:\Users\Герыч\AppData\Local\Application Inspector Analyzer\utils\JSA\JSA.dll" go srv --connection-type Pipe --pipe pipe-66c3b11c-5e6d-4f9e-9652-f6c096772318-go --scan-target c:\Users\Герыч\Desktop\news_app --temp-dir c:\Users\Герыч\Desktop\news_app\.ai\Temp\a2d59f0678fa43b5b58fdb2002ce0207\Go --free-memory-percent-limit 14 --logs-dir c:\Users\Герыч\Desktop\news_app\.ai\Logs\Infrastructure\2025-03-12-20-18-55\Go
+2025-03-12T20:54:33.141+10:00 INFO [T:10] Reading dependencies versions...
+2025-03-12T20:54:33.141+10:00 INFO [T:10] Selected language provider: JSA.GoProvider
+2025-03-12T20:54:33.583+10:00 INFO [T:12] Loading knowledge base
+2025-03-12T20:54:33.583+10:00 INFO [T:12] Loading custom knowledge base from folder C:\Users\Герыч\AppData\Local\Application Inspector Analyzer\utils\JSA\Scripts.
+2025-03-12T20:54:33.583+10:00 WARN [T:12] Directory custom knowledge base C:\Users\Герыч\AppData\Local\Application Inspector Analyzer\utils\JSA\Scripts not found.
+2025-03-12T20:54:33.583+10:00 INFO [T:12] Finished loading custom knowledge base.
+2025-03-12T20:54:33.583+10:00 WARN [T:12] Core knowledge base doesn't exist.
+2025-03-12T20:54:33.583+10:00 INFO [T:12] Custom knowledge base initialized.
+2025-03-12T20:54:34.133+10:00 INFO [T:11] File c:\Users\Герыч\Desktop\news_app\schema.sql ignored.
+2025-03-12T20:54:34.133+10:00 INFO [T:10] File c:\Users\Герыч\Desktop\news_app\go.sum ignored.
+2025-03-12T20:54:34.133+10:00 INFO [T:12] File c:\Users\Герыч\Desktop\news_app\go.mod ignored.
+2025-03-12T20:54:34.254+10:00 INFO [T:8] File pkg\storage\storage.go read (Elapsed: (Elapsed: 00:00.119)).
+2025-03-12T20:54:34.254+10:00 INFO [T:5] File pkg\storage\memdb\memdb.go read (Elapsed: (Elapsed: 00:00.119)).
+2025-03-12T20:54:34.254+10:00 INFO [T:7] File pkg\api\api.go read (Elapsed: (Elapsed: 00:00.119)).
+2025-03-12T20:54:34.254+10:00 INFO [T:9] File cmd\server\server.go read (Elapsed: (Elapsed: 00:00.119)).
+2025-03-12T20:54:34.259+10:00 INFO [T:14] File pkg\storage\mongo\mongo.go read (Elapsed: (Elapsed: 00:00.125)).
+2025-03-12T20:54:34.259+10:00 INFO [T:10] File pkg\storage\postgres\postgres.go read (Elapsed: (Elapsed: 00:00.125)).
+2025-03-12T20:54:34.277+10:00 INFO [T:8] File pkg\storage\storage.go tokenized (Elapsed: 00:00.007).
+2025-03-12T20:54:34.277+10:00 INFO [T:5] File pkg\storage\memdb\memdb.go tokenized (Elapsed: 00:00.008).
+2025-03-12T20:54:34.277+10:00 INFO [T:9] File cmd\server\server.go tokenized (Elapsed: 00:00.008).
+2025-03-12T20:54:34.277+10:00 INFO [T:14] File pkg\storage\mongo\mongo.go tokenized (Elapsed: 00:00.008).
+2025-03-12T20:54:34.277+10:00 INFO [T:7] File pkg\api\api.go tokenized (Elapsed: 00:00.008).
+2025-03-12T20:54:34.277+10:00 INFO [T:10] File pkg\storage\postgres\postgres.go tokenized (Elapsed: 00:00.008).
+2025-03-12T20:54:34.399+10:00 INFO [T:8] File pkg\storage\storage.go parsed (Elapsed: 00:00.120).
+2025-03-12T20:54:34.439+10:00 INFO [T:8] File pkg\storage\storage.go converted (Elapsed: 00:00.039).
+2025-03-12T20:54:34.443+10:00 INFO [T:9] File cmd\server\server.go parsed (Elapsed: 00:00.165).
+2025-03-12T20:54:34.443+10:00 INFO [T:9] File cmd\server\server.go converted (Elapsed: 00:00.010).
+2025-03-12T20:54:34.485+10:00 INFO [T:5] File pkg\storage\memdb\memdb.go parsed (Elapsed: 00:00.207).
+2025-03-12T20:54:34.498+10:00 INFO [T:5] File pkg\storage\memdb\memdb.go converted (Elapsed: 00:00.012).
+2025-03-12T20:54:34.732+10:00 INFO [T:14] File pkg\storage\mongo\mongo.go parsed (Elapsed: 00:00.453).
+2025-03-12T20:54:34.732+10:00 INFO [T:14] File pkg\storage\mongo\mongo.go converted (Elapsed: 00:00.002).
+2025-03-12T20:54:34.732+10:00 INFO [T:7] File pkg\api\api.go parsed (Elapsed: 00:00.473).
+2025-03-12T20:54:34.732+10:00 INFO [T:7] File pkg\api\api.go converted (Elapsed: 00:00.001).
+2025-03-12T20:54:34.777+10:00 INFO [T:10] File pkg\storage\postgres\postgres.go parsed (Elapsed: 00:00.498).
+2025-03-12T20:54:34.777+10:00 INFO [T:10] File pkg\storage\postgres\postgres.go converted (Elapsed: 00:00.001).
+2025-03-12T20:54:34.777+10:00 INFO [T:12] Discovered and converted 6 files.
+2025-03-12T20:54:41.725+10:00 INFO [T:12] Declaration collection started
+2025-03-12T20:54:41.728+10:00 INFO [T:12] Discovered 6 packages
+2025-03-12T20:54:41.728+10:00 INFO [T:12] Declaration collection finished
+2025-03-12T20:54:41.728+10:00 INFO [T:12] Initializing project types
+2025-03-12T20:54:41.766+10:00 INFO [T:12] Initializing cmd.server.main
+2025-03-12T20:54:41.766+10:00 INFO [T:12] cmd.server.main initialized
+2025-03-12T20:54:41.766+10:00 INFO [T:12] Initializing pkg.api
+2025-03-12T20:54:41.766+10:00 INFO [T:12] pkg.api initialized
+2025-03-12T20:54:41.766+10:00 INFO [T:12] Initializing pkg.storage
+2025-03-12T20:54:41.766+10:00 INFO [T:12] pkg.storage initialized
+2025-03-12T20:54:41.766+10:00 INFO [T:12] Initializing pkg.storage.memdb
+2025-03-12T20:54:41.766+10:00 INFO [T:12] pkg.storage.memdb initialized
+2025-03-12T20:54:41.766+10:00 INFO [T:12] Initializing pkg.storage.mongo
+2025-03-12T20:54:41.766+10:00 INFO [T:12] pkg.storage.mongo initialized
+2025-03-12T20:54:41.766+10:00 INFO [T:12] Initializing pkg.storage.postgres
+2025-03-12T20:54:41.766+10:00 INFO [T:12] pkg.storage.postgres initialized
+2025-03-12T20:54:41.766+10:00 INFO [T:12] Root entry points execution...
+2025-03-12T20:54:41.766+10:00 INFO [T:12] Root entry points executed.
+2025-03-12T20:54:41.766+10:00 INFO [T:12] Frameworks entry points execution...
+2025-03-12T20:54:41.843+10:00 INFO [T:12] Frameworks entry points executed.
+2025-03-12T20:54:42.040+10:00 INFO [T:8] Please implement this method for incremental scan support.
+2025-03-12T20:54:42.040+10:00 INFO [T:8] Scanning completed successfully.

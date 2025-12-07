@@ -1,0 +1,22 @@
+
+AI.Taint.CLangs version:       not found or not supported
+AI.Taint version:              2.2.6.0 (12/03/2024 11:48:50)
+OS:                            Microsoft Windows NT 10.0.26100.0
+Config:                        RELEASE no debugger, no obfuscation
+Peak virtual/working set:      2102032.0703125 / 102.9765625 MB, 64-bit
+
+Scan path or file:             c:\Users\Герыч\Desktop\news_app
+Thread count:                  4
+Finish date:                   03/10/2025 19:36:37
+Matches count:                 0 (0 PM + 0 Taint; 0 suppressed)
+Files count:                   1
+Lines/chars count:             11 / 105
+Patterns count:                928 (227 PM + 701 Taint)
+File time ratio:               23.26%
+Tokens time ratio:             00.08%
+ParseTree time ratio:          04.76%
+Ust time ratio:                03.30%
+Match time ratio:              01.60%
+Pattern time ratio:            67.01%
+
+Time elapsed:                  00:21.546

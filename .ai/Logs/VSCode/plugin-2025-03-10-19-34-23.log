@@ -1,0 +1,14 @@
+[3/10/2025, 7:34:23 PM] info: Logging was started to file.
+[3/10/2025, 7:34:23 PM] info: Start application inspector initialization
+[3/10/2025, 7:34:23 PM] info: Hide developer mode UI
+[3/10/2025, 7:34:23 PM] info: Infrastructure Configurations: {"port":8000,"infrastructureAssemblyFolderPath":"C:\\Users\\Герыч\\AppData\\Local\\Application Inspector Analyzer","applicationResourcesFolderPath":"C:\\Users\\Герыч\\AppData\\Local\\Application Inspector Analyzer","scanTargetFolderPath":"c:\\Users\\Герыч\\Desktop\\news_app","isDebugging":false,"logLevel":{"q8_1":"Error","r8_1":5,"type":5,"key":"Settings.LogLevel.Error.Text"},"logDir":"c:\\Users\\Герыч\\Desktop\\news_app\\.ai\\Logs\\Infrastructure\\2025-03-10-19-34-23","tipsFoundNotificationThreshold":1000,"similarIssuesFoundNotificationThreshold":1000,"applicationLocalDataFolderPath":"c:\\Users\\Герыч\\Desktop\\news_app\\.ai"}
+[3/10/2025, 7:34:23 PM] info: Start infrastructure initialization
+[3/10/2025, 7:34:26 PM] info: Infrastructure was started
+[3/10/2025, 7:34:31 PM] info: Initialize aie integration isn't initialized
+[3/10/2025, 7:34:31 PM] info: Infrastructure was initialized
+[3/10/2025, 7:34:32 PM] info: Infrastructure Installer was deleted
+[3/10/2025, 7:34:32 PM] info: Clean up logs files was started
+[3/10/2025, 7:34:32 PM] info: Clean up logs files was finished
+[3/10/2025, 7:34:33 PM] info: Project was created. Id: a2d59f06-78fa-43b5-b58f-db2002ce0207
+[3/10/2025, 7:35:01 PM] info: Start scan command handled
+[3/10/2025, 7:36:38 PM] info: Scan done message handled

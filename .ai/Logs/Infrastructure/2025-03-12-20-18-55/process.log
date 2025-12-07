@@ -1,0 +1,6 @@
+2025-03-12T10:54:41.433+10:00 ERROR Set Inaccurate state from new items and not full rescan on new items.
+2025-03-12T10:54:52.250+10:00 ERROR @ConfigurationProcessor: Stopping work of ConfigurationProcessor...
+––– details ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+System.Exception: Pipe disconnected! STATE: Broken
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––

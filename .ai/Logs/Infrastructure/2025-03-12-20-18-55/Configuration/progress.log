@@ -1,0 +1,19 @@
+2025-03-12 20:54:41.477733 ║INFO	║ 20964	║ process file c:\Users\Герыч\Desktop\news_app\cmd
+2025-03-12 20:54:41.487632 ║INFO	║ 20964	║ process file c:\Users\Герыч\Desktop\news_app\cmd\server
+2025-03-12 20:54:41.494686 ║INFO	║ 20964	║ process file c:\Users\Герыч\Desktop\news_app\cmd\server\server.go
+2025-03-12 20:54:41.501198 ║INFO	║ 20964	║ process file c:\Users\Герыч\Desktop\news_app\pkg
+2025-03-12 20:54:41.507868 ║INFO	║ 20964	║ process file c:\Users\Герыч\Desktop\news_app\pkg\api
+2025-03-12 20:54:41.513226 ║INFO	║ 20964	║ process file c:\Users\Герыч\Desktop\news_app\pkg\api\api.go
+2025-03-12 20:54:41.517634 ║INFO	║ 20964	║ process file c:\Users\Герыч\Desktop\news_app\pkg\storage
+2025-03-12 20:54:41.523969 ║INFO	║ 20964	║ process file c:\Users\Герыч\Desktop\news_app\pkg\storage\memdb
+2025-03-12 20:54:41.527784 ║INFO	║ 20964	║ process file c:\Users\Герыч\Desktop\news_app\pkg\storage\memdb\memdb.go
+2025-03-12 20:54:41.527784 ║INFO	║ 20964	║ process file c:\Users\Герыч\Desktop\news_app\pkg\storage\mongo
+2025-03-12 20:54:41.541635 ║INFO	║ 20964	║ process file c:\Users\Герыч\Desktop\news_app\pkg\storage\mongo\mongo.go
+2025-03-12 20:54:41.551635 ║INFO	║ 20964	║ process file c:\Users\Герыч\Desktop\news_app\pkg\storage\postgres
+2025-03-12 20:54:41.559102 ║INFO	║ 20964	║ process file c:\Users\Герыч\Desktop\news_app\pkg\storage\postgres\postgres.go
+2025-03-12 20:54:41.566613 ║INFO	║ 20964	║ process file c:\Users\Герыч\Desktop\news_app\pkg\storage\storage.go
+2025-03-12 20:54:41.574125 ║INFO	║ 20964	║ process file c:\Users\Герыч\Desktop\news_app\go.mod
+2025-03-12 20:54:41.581047 ║INFO	║ 20964	║ process file c:\Users\Герыч\Desktop\news_app\go.sum
+2025-03-12 20:54:41.589145 ║INFO	║ 20964	║ process file c:\Users\Герыч\Desktop\news_app\schema.sql
+2025-03-12 20:54:52.220212 ║INFO	║ 20964	║ Finalize
+2025-03-12 20:54:52.227660 ║INFO	║ 20964	║ Finalize done

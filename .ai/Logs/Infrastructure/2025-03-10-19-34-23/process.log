@@ -1,0 +1,5 @@
+2025-03-10T09:36:37.215+10:00 ERROR @ConfigurationProcessor: Stopping work of ConfigurationProcessor...
+––– details ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+System.Exception: Pipe disconnected! STATE: Broken
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––

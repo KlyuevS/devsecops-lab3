@@ -1,0 +1,70 @@
+version: '3.8'
+#делаем единую сеть для всех сервисов
+networks:
+  app_net:
+    driver: bridge
+#первым делом поднимаем БД, к нему подключается апиха
+services:
+  db:
+    image: postgres:15-alpine #выбираем образ для БД (альпина самая ресурсоёмкая)
+    restart: unless-stopped   #выбираем метод остановки сервиса
+    environment: #указываем креды к БД (имя БД, логин и пароль)
+      POSTGRES_USER: news_user
+      POSTGRES_DB: news
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password #пароль лежит в .txt в папке с секретами
+    volumes:
+      #- db_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro #в задании не было указано сохранять записи в БД, поэтому подключаем только файл инициализации
+    networks: #указываем ранее созданную сеть
+      - app_net
+    ports:
+      - "5432:5432" #проброс портов на локалхост
+    secrets:
+      - postgres_password
+  # конфигурация апихи
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile #указываем докерфайл, чтобы собрать в два этапа => сначала собрать бинарник, потом собрать контейнер с бинарником
+    depends_on: #если сборка БД упадет, то приложение не соберется тоже, указываем зависимость т.к. важна последовательность
+      - db
+    environment:         #передаем креды для подключения к БД
+      DATABASE_HOST: db
+      DATABASE_NAME: news
+      DATABASE_USER: news_user
+      DATABASE_PASSWORD_FILE: /run/secrets/postgres_password
+    networks: #указываем нашу сеть
+      - app_net
+    expose:
+      - "8080" #не нужен проброс портов, проксируем трафик через nginx
+    restart: unless-stopped #аналогично БД
+    secrets:
+      - postgres_password
+
+  nginx: #описание сборки проксирующего сервера
+    build:
+      context: ./docker/nginx #указываем путь к файлам конфигурации
+      dockerfile: Dockerfile #в докерфайле только образ
+    depends_on: #без приложения веб сервер не имеет смысл, соблюдаем строгую последовательность
+      - app
+    networks: #указываем сетку
+      - app_net
+    ports:
+      - "80:80"  #пробрасываем два порта 80 и 443, но в конфигурации nginx.conf: 80=>443
+      - "443:443"
+    restart: unless-stopped
+    secrets: #в секретах лежат серт, ключ и пароль от БД
+      - nginx_cert
+      - nginx_key
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+
+
+#указываем пути к секретам
+secrets:
+  postgres_password:
+    file: ./docker/secrets/postgres_password.txt
+  nginx_cert:
+    file: ./docker/secrets/fullchain.pem
+  nginx_key:
+    file: ./docker/secrets/privkey.pem

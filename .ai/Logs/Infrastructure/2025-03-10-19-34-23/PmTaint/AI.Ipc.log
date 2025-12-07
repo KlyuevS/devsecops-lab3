@@ -1,0 +1,10 @@
+Send message {Progress, MessagePack, 4 bytes}
+Send message {IgnoredNodes, MessagePack, 47 bytes}
+Send message {NodeScanStatus, MessagePack, 48 bytes}
+Send message {Progress, MessagePack, 4 bytes}
+Send message {NodeScanStatus, MessagePack, 48 bytes}
+Send message {ScanDone, ByteArray, 0 bytes}
+Elapsed time of the 'Scan' stage: 00:00:11.3790829
+Send message {Progress, MessagePack, 4 bytes}
+Send message {FinalizeDone, ByteArray, 0 bytes}
+Elapsed time of the 'Finalize' stage: 00:00:00.0123820
