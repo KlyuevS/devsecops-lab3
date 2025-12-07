@@ -124,7 +124,8 @@ jobs:
       if: success()
       run: echo "✅ Security scan passed!"
   secret-scan:
-    needs: cache
+    name: Secret Scan Stage
+    needs: security
     runs-on: ubuntu-latest
 
     steps:
@@ -133,17 +134,27 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Scan repository for secrets
+    - name: Detect exposed secrets (gitleaks)
       uses: gitleaks/gitleaks-action@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        args: --redact --verbose
+        args: --no-banner --redact --verbose --report-format json --report-path gitleaks-report.json
+
+    - name: Upload gitleaks report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: gitleaks-report
+        path: gitleaks-report.json
+        if-no-files-found: ignore
 
     - name: Secrets check passed
       if: success()
       run: echo "✅ No hardcoded secrets detected by gitleaks"
 
   sast:
-    needs: [lint, security, secret-scan]
+    needs: [lint, secret-scan]
     runs-on: ubuntu-latest
     
     steps:
@@ -222,7 +233,7 @@ jobs:
       run: echo "✅ SAST analysis passed! Code is secure and maintainable."
   
   test:
-    needs: [lint, security, secret-scan, sast]
+    needs: [secret-scan, sast]
     runs-on: ubuntu-latest
     
     steps:
