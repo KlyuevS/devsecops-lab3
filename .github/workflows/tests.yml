@@ -472,11 +472,17 @@ jobs:
         fi
         echo "Application is ready"
 
+    - name: Prepare report directory
+      run: |
+        mkdir -p $GITHUB_WORKSPACE/zap-reports
+        chmod 777 $GITHUB_WORKSPACE/zap-reports
+
     - name: Run OWASP ZAP Baseline Scan (docker)
       run: |
+        REPORT_DIR=$GITHUB_WORKSPACE/zap-reports
         docker run --rm \
           --network news-app-dast-net \
-          -v $GITHUB_WORKSPACE:/zap/wrk:rw \
+          -v ${REPORT_DIR}:/zap/wrk:rw \
           ghcr.io/zaproxy/zaproxy:stable \
           zap-baseline.py \
             -t http://news-app-dast:8080 \
@@ -491,9 +497,9 @@ jobs:
       with:
         name: zap-baseline-report
         path: |
-          zap-report.html
-          zap-report.md
-          zap-report.json
+          zap-reports/zap-report.html
+          zap-reports/zap-report.md
+          zap-reports/zap-report.json
         if-no-files-found: error
 
     - name: Stop application container
