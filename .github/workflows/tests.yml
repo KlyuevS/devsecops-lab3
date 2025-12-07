@@ -217,7 +217,7 @@ jobs:
       uses: docker/build-push-action@v4
       with:
         context: ./docker/nginx
-        file: ./docker/nginx/Dockerfile
+        file: ./Dockerfile
         push: false
         tags: news-nginx:${{ github.sha }},news-nginx:latest
         cache-from: type=gha
@@ -278,9 +278,9 @@ jobs:
       uses: docker/build-push-action@v4
       with:
         context: ./docker/nginx
-        file: ./docker/nginx/Dockerfile
+        file: ./Dockerfile
         push: false
-        tags: news-nginx:${{ github.sha }}
+        tags: news-nginx:${{ github.sha }},news-nginx:latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
         outputs: type=docker
