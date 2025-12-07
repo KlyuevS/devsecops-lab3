@@ -406,8 +406,55 @@ jobs:
         echo "=========================================="
       working-directory: .
 
-  docker-compose-check:
+  dast:
+    name: DAST - OWASP ZAP
     needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Build runtime image for DAST scan
+      run: |
+        docker build -t news-app-dast:latest .
+        docker images | grep news-app-dast
+
+    - name: Start application container for scan
+      run: |
+        docker run -d --name news-app-dast -p 8080:8080 news-app-dast:latest
+        echo "Waiting for application to become ready..."
+        for i in {1..20}; do
+          if curl -sf http://localhost:8080/health || curl -sf http://localhost:8080/healthz; then
+            echo "Application is ready"
+            exit 0
+          fi
+          sleep 5
+        done
+        echo "Application did not become ready in time"
+        docker logs news-app-dast || true
+        exit 1
+
+    - name: Run OWASP ZAP Baseline Scan
+      uses: zaproxy/action-baseline@v0.12.0
+      with:
+        target: http://localhost:8080
+        cmd_options: -a
+
+    - name: Upload ZAP report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: zap-baseline-report
+        path: baseline-report.html
+        if-no-files-found: ignore
+
+    - name: Stop application container
+      if: always()
+      run: docker rm -f news-app-dast || true
+
+  docker-compose-check:
+    needs: [build, dast]
     runs-on: ubuntu-latest
     
     steps:
@@ -489,7 +536,7 @@ jobs:
         echo "=========================================="
 
   build-report:
-    needs: [build, docker-compose-check]
+    needs: [build, dast, docker-compose-check]
     runs-on: ubuntu-latest
     if: always()
     
