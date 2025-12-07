@@ -420,20 +420,53 @@ jobs:
         docker build -t news-app-dast:latest .
         docker images | grep news-app-dast
 
-    - name: Start application container for scan
+    - name: Prepare network and dependencies
       run: |
-        docker run -d --name news-app-dast -p 8080:8080 news-app-dast:latest
-        echo "Waiting for application to become ready..."
+        set -e
+        docker network create news-app-dast-net
+        docker run -d --name news-app-dast-db \
+          --network news-app-dast-net \
+          --network-alias db \
+          -e POSTGRES_USER=news_user \
+          -e POSTGRES_PASSWORD=news_pass \
+          -e POSTGRES_DB=news \
+          postgres:15-alpine
+        echo "Waiting for PostgreSQL to accept connections..."
+        ready=false
         for i in {1..20}; do
-          if curl -sf http://localhost:8080/health || curl -sf http://localhost:8080/healthz; then
-            echo "Application is ready"
-            exit 0
+          if docker exec news-app-dast-db pg_isready -U news_user -d news; then
+            ready=true
+            break
           fi
           sleep 5
         done
-        echo "Application did not become ready in time"
-        docker logs news-app-dast || true
-        exit 1
+        if [ "$ready" = false ]; then
+          echo "PostgreSQL failed to start"
+          docker logs news-app-dast-db || true
+          exit 1
+        fi
+        echo "PostgreSQL is ready"
+
+    - name: Start application container for scan
+      run: |
+        docker run -d --name news-app-dast \
+          --network news-app-dast-net \
+          -p 8080:8080 news-app-dast:latest
+        echo "Waiting for application to become ready..."
+        ready=false
+        for i in {1..20}; do
+          if curl -sf http://localhost:8080/health || curl -sf http://localhost:8080/healthz; then
+            ready=true
+            break
+          fi
+          sleep 5
+        done
+        if [ "$ready" = false ]; then
+          echo "Application did not become ready in time"
+          docker logs news-app-dast || true
+          exit 1
+        fi
+        echo "Application is ready"
 
     - name: Run OWASP ZAP Baseline Scan
       uses: zaproxy/action-baseline@v0.12.0
@@ -451,7 +484,10 @@ jobs:
 
     - name: Stop application container
       if: always()
-      run: docker rm -f news-app-dast || true
+      run: |
+        docker rm -f news-app-dast || true
+        docker rm -f news-app-dast-db || true
+        docker network rm news-app-dast-net || true
 
   docker-compose-check:
     needs: [build, dast]
