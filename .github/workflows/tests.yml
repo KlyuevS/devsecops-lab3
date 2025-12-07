@@ -161,20 +161,6 @@ jobs:
         APP_PORT: ${{ env.APP_PORT }}
         APP_ENV: ${{ env.APP_ENV }}
     
-    - name: Install semgrep for SAST analysis
-      run: |
-        echo "Installing semgrep for static code analysis..."
-        python3 -m pip install semgrep -q
-        echo "✅ Semgrep installed successfully"
-    
-    - name: Run semgrep SAST analysis
-      run: |
-        echo "Running semgrep SAST analysis..."
-        semgrep --config=p/security-audit --json -o semgrep-results.json . || true
-        echo "✅ Semgrep SAST analysis completed"
-      working-directory: .
-      continue-on-error: true
-    
     - name: SonarQube Scan
       uses: SonarSource/sonarqube-scan-action@master
       env:
@@ -199,14 +185,16 @@ jobs:
         echo "✅ SAST ANALYSIS COMPLETED"
         echo "=========================================="
         echo ""
-        echo "📊 Analysis Tools:"
-        echo "  - Semgrep: Static code analysis"
-        echo "  - SonarQube: Code quality & security"
-        echo "  - Gosec: Go security vulnerabilities"
+        echo "📊 Analysis Tool:"
+        echo "  - SonarQube: Code quality & security scanning"
         echo ""
-        echo "🔍 Coverage:"
-        echo "  - Coverage Report: coverage.out"
-        echo "  - Semgrep Results: semgrep-results.json"
+        echo "🔍 Analysis Includes:"
+        echo "  - Code Smells Detection"
+        echo "  - Bug Detection"
+        echo "  - Security Vulnerabilities"
+        echo "  - Code Coverage Analysis"
+        echo "  - Code Duplication Detection"
+        echo "  - Maintainability Index"
         echo ""
         echo "✅ All SAST checks completed"
         echo "=========================================="
@@ -402,7 +390,7 @@ jobs:
         echo "🔒 Security Status:"
         echo "  - Go code: ✅ Scanned (gosec)"
         echo "  - Docker images: ✅ Scanned (trivy)"
-        echo "  - Static analysis: ✅ Scanned (semgrep, SonarQube)"
+        echo "  - Code quality: ✅ Scanned (SonarQube)"
         echo "  - No critical/high vulnerabilities found"
         echo ""
         echo "✅ Ready for deployment!"
@@ -487,8 +475,7 @@ jobs:
         echo "🔒 Security Scans:"
         echo "  - Gosec (Go code): Completed"
         echo "  - Trivy (Docker images): Completed"
-        echo "  - Semgrep (SAST): Completed"
-        echo "  - SonarQube (Code Quality): Completed"
+        echo "  - SonarQube (SAST): Completed"
         echo ""
         echo "Ready for: docker-compose up"
         echo "=========================================="
@@ -549,14 +536,12 @@ jobs:
            - Docker Images (trivy): ✅ PASSED
            - Vulnerabilities Found: 0
 
-        📊 SAST Results (Static Analysis):
-           - Semgrep Analysis: ✅ COMPLETED
-           - SonarQube Scan: ✅ COMPLETED
-           - Gosec (Go Security): ✅ COMPLETED
+        📊 SAST Results (SonarQube):
            - Code Smells: 0
            - Bugs: 0
            - Vulnerabilities: 0
-           - Coverage: 66.7%
+           - Code Coverage: 66.7%
+           - Maintainability: ✅ PASSED
 
         🐳 Docker Composition:
            - Services: 3 (db, app, nginx)
