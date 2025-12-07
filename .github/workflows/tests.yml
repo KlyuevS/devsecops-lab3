@@ -123,9 +123,27 @@ jobs:
     - name: Security check passed
       if: success()
       run: echo "✅ Security scan passed!"
-  
+  secret-scan:
+    needs: cache
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Scan repository for secrets
+      uses: gitleaks/gitleaks-action@v2
+      with:
+        args: --redact --verbose
+
+    - name: Secrets check passed
+      if: success()
+      run: echo "✅ No hardcoded secrets detected by gitleaks"
+
   sast:
-    needs: [lint, security]
+    needs: [lint, security, secret-scan]
     runs-on: ubuntu-latest
     
     steps:
@@ -204,7 +222,7 @@ jobs:
       run: echo "✅ SAST analysis passed! Code is secure and maintainable."
   
   test:
-    needs: [lint, security, sast]
+    needs: [lint, security, secret-scan, sast]
     runs-on: ubuntu-latest
     
     steps:
