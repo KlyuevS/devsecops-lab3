@@ -427,6 +427,7 @@ jobs:
         docker run -d --name news-app-dast-db \
           --network news-app-dast-net \
           --network-alias db \
+          -v $GITHUB_WORKSPACE/docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro \
           -e POSTGRES_USER=news_user \
           -e POSTGRES_PASSWORD=news_pass \
           -e POSTGRES_DB=news \
@@ -455,7 +456,7 @@ jobs:
         echo "Waiting for application to become ready..."
         ready=false
         for i in {1..20}; do
-          if curl -sf http://localhost:8080/health || curl -sf http://localhost:8080/healthz; then
+          if curl -sf http://localhost:8080/posts || curl -sf http://localhost:8080/health || curl -sf http://localhost:8080/healthz || curl -sf http://localhost:8080; then
             ready=true
             break
           fi
