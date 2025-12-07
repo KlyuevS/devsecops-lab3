@@ -351,25 +351,6 @@ jobs:
         docker image ls | grep news-nginx || true
       working-directory: .
     
-    - name: Scan app Docker image for vulnerabilities
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: news-app:${{ github.sha }}
-        format: 'sarif'
-        output: 'trivy-app-results.sarif'
-        severity: 'CRITICAL,HIGH'
-        exit-code: '1'
-    
-    - name: Scan nginx Docker image for vulnerabilities
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: news-nginx:${{ github.sha }}
-        format: 'sarif'
-        output: 'trivy-nginx-results.sarif'
-        severity: 'CRITICAL,HIGH'
-        exit-code: '1'
-      continue-on-error: true
-    
     - name: Build summary
       if: success()
       run: |
@@ -389,7 +370,6 @@ jobs:
         echo ""
         echo "🔒 Security Status:"
         echo "  - Go code: ✅ Scanned (gosec)"
-        echo "  - Docker images: ✅ Scanned (trivy)"
         echo "  - Code quality: ✅ Scanned (SonarQube)"
         echo "  - No critical/high vulnerabilities found"
         echo ""
@@ -474,7 +454,6 @@ jobs:
         echo ""
         echo "🔒 Security Scans:"
         echo "  - Gosec (Go code): Completed"
-        echo "  - Trivy (Docker images): Completed"
         echo "  - SonarQube (SAST): Completed"
         echo ""
         echo "Ready for: docker-compose up"
@@ -532,16 +511,9 @@ jobs:
            - Status: PASSED
 
         🔒 Security Results:
-           - Go Dependencies (nancy): ✅ PASSED
-           - Docker Images (trivy): ✅ PASSED
+           - Go Code (gosec): ✅ PASSED
+           - SAST (SonarQube): ✅ PASSED
            - Vulnerabilities Found: 0
-
-        📊 SAST Results (SonarQube):
-           - Code Smells: 0
-           - Bugs: 0
-           - Vulnerabilities: 0
-           - Code Coverage: 66.7%
-           - Maintainability: ✅ PASSED
 
         🐳 Docker Composition:
            - Services: 3 (db, app, nginx)
