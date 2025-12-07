@@ -361,7 +361,14 @@ jobs:
         echo "✅ Image tag: news-app:${{ github.sha }}"
         docker image ls | grep news-app || true
       working-directory: .
-    
+
+    - name: Upload app image artifact for scanning
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-image-tar
+        path: /tmp/app-image.tar
+        retention-days: 1
+
     - name: Build Docker image for nginx
       uses: docker/build-push-action@v4
       with:
@@ -406,9 +413,39 @@ jobs:
         echo "=========================================="
       working-directory: .
 
+  trivy-scan:
+    name: Container Scan - Trivy
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Download built image artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: app-image-tar
+        path: trivy
+
+    - name: Load Docker image from artifact
+      run: |
+        docker load -i trivy/app-image.tar
+        docker image ls news-app || true
+
+    - name: Run Trivy vulnerability scan
+      uses: aquasecurity/trivy-action@0.24.0
+      with:
+        image-ref: news-app:${{ github.sha }}
+        format: table
+        exit-code: 1
+        ignore-unfixed: true
+        vuln-type: 'os,library'
+        severity: 'CRITICAL,HIGH'
+
   dast:
     name: DAST - OWASP ZAP
-    needs: build
+    needs: trivy-scan
     runs-on: ubuntu-latest
 
     steps:
@@ -592,7 +629,7 @@ jobs:
         echo "=========================================="
 
   build-report:
-    needs: [build, dast, docker-compose-check]
+    needs: [build, trivy-scan, dast, docker-compose-check]
     runs-on: ubuntu-latest
     if: always()
     
