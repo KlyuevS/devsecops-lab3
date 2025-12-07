@@ -64,7 +64,9 @@ func (s *Store) AddTask(p storage.Task) error {
  if err != nil {
   return err
  }
- defer tx.Rollback(context.Background())
+ defer func() {
+  _ = tx.Rollback(context.Background())
+ }()
 
  _, err = tx.Exec(context.Background(), `
   INSERT INTO posts (id, responsible_id, responsible_name, context, assigned_at, due_date)
@@ -89,7 +91,9 @@ func (s *Store) UpdateTask(p storage.Task) error {
  if err != nil {
   return err
  }
- defer tx.Rollback(context.Background())
+ defer func() {
+  _ = tx.Rollback(context.Background())
+ }()
 
  commandTag, err := tx.Exec(context.Background(), `
   UPDATE posts SET
@@ -122,7 +126,9 @@ func (s *Store) DeleteTask(p storage.Task) error {
  if err != nil {
   return err
  }
- defer tx.Rollback(context.Background())
+ defer func() {
+  _ = tx.Rollback(context.Background())
+ }()
 
  commandTag, err := tx.Exec(context.Background(), `
   DELETE FROM posts

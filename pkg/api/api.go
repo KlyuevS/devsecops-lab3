@@ -44,7 +44,11 @@ func (api *API) postsHandler(w http.ResponseWriter, r *http.Request) {
   http.Error(w, err.Error(), http.StatusInternalServerError)
   return
  }
- w.Write(bytes)
+ _, err = w.Write(bytes)
+ if err != nil {
+  http.Error(w, err.Error(), http.StatusInternalServerError)
+  return
+ }
 }
 
 func (api *API) addPostHandler(w http.ResponseWriter, r *http.Request) {
