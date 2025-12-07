@@ -288,13 +288,13 @@ jobs:
     - name: Verify docker-compose file
       run: |
         echo "Checking docker-compose configuration..."
-        docker-compose config > /dev/null
+        docker compose config > /dev/null
         echo "✅ docker-compose.yml is valid"
     
     - name: Build all services with docker-compose
       run: |
         echo "Building all services..."
-        docker-compose build --no-cache
+        docker compose build --no-cache
         echo "✅ All services built successfully"
     
     - name: Check built images
