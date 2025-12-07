@@ -216,8 +216,8 @@ jobs:
     - name: Build Docker image for nginx
       uses: docker/build-push-action@v4
       with:
-        context: ${{ github.workspace }}/docker/nginx
-        file: ${{ github.workspace }}/docker/nginx/Dockerfile
+        context: ${{ github.workspace }}/nginx
+        file: ${{ github.workspace }}/nginx/Dockerfile
         push: false
         tags: news-nginx:${{ github.sha }},news-nginx:latest
         cache-from: type=gha
@@ -277,8 +277,8 @@ jobs:
     - name: Build nginx image
       uses: docker/build-push-action@v4
       with:
-        context: ${{ github.workspace }}/docker/nginx
-        file: ${{ github.workspace }}/docker/nginx/Dockerfile
+        context: ${{ github.workspace }}/nginx
+        file: ${{ github.workspace }}/nginx/Dockerfile
         push: false
         tags: news-nginx:${{ github.sha }},news-nginx:latest
         cache-from: type=gha
