@@ -198,8 +198,8 @@ jobs:
     - name: Build Docker image for app
       uses: docker/build-push-action@v4
       with:
-        context: .
-        file: ./Dockerfile
+        context: ${{ github.workspace }}
+        file: ${{ github.workspace }}/Dockerfile
         push: false
         tags: news-app:${{ github.sha }},news-app:latest
         cache-from: type=gha
@@ -216,8 +216,8 @@ jobs:
     - name: Build Docker image for nginx
       uses: docker/build-push-action@v4
       with:
-        context: ./docker/nginx
-        file: ./Dockerfile
+        context: ${{ github.workspace }}/docker/nginx
+        file: ${{ github.workspace }}/docker/nginx/Dockerfile
         push: false
         tags: news-nginx:${{ github.sha }},news-nginx:latest
         cache-from: type=gha
@@ -266,8 +266,8 @@ jobs:
     - name: Build app image
       uses: docker/build-push-action@v4
       with:
-        context: .
-        file: ./Dockerfile
+        context: ${{ github.workspace }}
+        file: ${{ github.workspace }}/Dockerfile
         push: false
         tags: news-app:${{ github.sha }}
         cache-from: type=gha
@@ -277,8 +277,8 @@ jobs:
     - name: Build nginx image
       uses: docker/build-push-action@v4
       with:
-        context: ./docker/nginx
-        file: ./Dockerfile
+        context: ${{ github.workspace }}/docker/nginx
+        file: ${{ github.workspace }}/docker/nginx/Dockerfile
         push: false
         tags: news-nginx:${{ github.sha }},news-nginx:latest
         cache-from: type=gha
